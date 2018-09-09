@@ -12,7 +12,17 @@
           <% end %>
         </div>
         <div class="col-sm-6">
-Slaaayeeeeeeeeeer!
+          <% if @current_website.is_multilingual && not_devise %>
+            <div class="contenedor_idiomas" style="">
+              <ul class="idiomas">
+                <% @current_website.supported_locales_with_variants.each do |locale_with_var| %>
+                  <li class=<%="#{'selected' if locale.to_s == locale_with_var["locale"]}" %>>
+                    <%= localized_link_to locale_with_var, params.permit(:locale,).merge({:locale => locale_with_var["locale"]}), class: locale_with_var["variant"] %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
